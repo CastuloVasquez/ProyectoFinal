@@ -32,13 +32,13 @@
                                     <input type="text" class="form-control" name="nosoporte" id="nosoporte" maxlength="50">
                                     <br>
                                     <label for="usuarioAsignacion">Usuario asignación</label>
-                                    <input type="text" class="form-control" name="usuarioAsignacion" id="usuarioAsignacion">
+                                    <input type="text" class="form-control" name="usuarioAsignacion" id="usuarioAsignacion" data-mask="aaaaaaaaaaaa">
                                     <br>
                                     <label>Rango de fechas</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control"  id="fechaAntes" placeholder="fecha inicial dd-mm-yyyy" data-mask="dd-mm-yyyy" aria-label="fechaInicial" name="fechaAntes">
+                                        <input type="text" class="form-control"  id="fechaAntes" placeholder="fecha inicial yyyy-mm-dd" data-mask="yyyy-mm-dd" aria-label="fechaInicial" name="fechaAntes">
                                         <span class="input-group-text">hasta</span>
-                                        <input type="text" class="form-control" id="fechaFinal" placeholder="fecha final dd-mm-yyyy" data-mask="dd-mm-yyyy" aria-label="fechaFinal" name="fechaFinal">
+                                        <input type="text" class="form-control" id="fechaFinal" placeholder="fecha final yyyy-mm-dd" data-mask="yyyy-mm-dd" aria-label="fechaFinal" name="fechaFinal">
                                     </div>
                                     <br>
                                     <label for="nit">NIT</label>
@@ -90,67 +90,137 @@
         <script type="text/javascript">
             const form = document.querySelector("#formSolicitud");
             const btnBuscar = document.querySelector("#btnBuscar");
-            const inputSolicitud=document.querySelector('#codigoSolicitud');
-            
-            inputSolicitud.addEventListener('keypress',()=>{
+            const inputSolicitud = document.querySelector('#codigoSolicitud');
+
+            inputSolicitud.addEventListener('keypress', () => {
                 inputDisable();
             });
-            
-            
-            btnBuscar.addEventListener('click',(e)=>{
+
+
+            btnBuscar.addEventListener('click', (e) => {
                 e.preventDefault();
-                const codigoSolicitud=form.codigoSolicitud.value;
-                const noexpediente=form.noexpediente.value;
-                const nosoporte=form.nosoporte.value;
-                const usuarioAsignacion=form.usuarioAsignacion.value;
-                const fechaAntes=form.fechaAntes.value;
-                const fechaFinal=form.fechaFinal.value;
-                const nit=form.nit.value;
-                const tipoSolicitud=form.tipoSolicitud.value;
-                const estadoSolicitud=form.estadoSolicitud.value;
-                const mensajeM=new bootstrap.Modal(document.getElementById("mensajeModal"));
-                const mensaje=document.querySelector('#mensaje');
-                
-                
-                if(evaluacionSoli(codigoSolicitud)){
-                    mensaje.innerHTML="Debe ingresar un codigo de solicitud valido";
+                const codigoSolicitud = form.codigoSolicitud.value;
+                const noexpediente = form.noexpediente.value;
+                const nosoporte = form.nosoporte.value;
+                const usuarioAsignacion = form.usuarioAsignacion.value;
+                const fechaAntes = form.fechaAntes.value;
+                const fechaFinal = form.fechaFinal.value;
+                const nit = form.nit.value;
+                const tipoSolicitud = form.tipoSolicitud.value;
+                const estadoSolicitud = form.estadoSolicitud.value;
+                const mensajeM = new bootstrap.Modal(document.getElementById("mensajeModal"));
+                const mensaje = document.querySelector('#mensaje');
+
+                let fechaActual = new Date();
+                let inicialA = new Date(fechaAntes);
+                let finalA = new Date(fechaFinal);
+                let restaFecha=finalA.getFullYear()-inicialA.getFullYear();
+
+
+                if (evaluacionExp(noexpediente)) {
+                    mensaje.innerHTML = "Debe ingresar No. expediente valido";
                     mensajeM.show();
                 }
-                
+                if (evaluacionSoporte(nosoporte)) {
+                    mensaje.innerHTML = "Debe ingresar No. soporte valido";
+                    mensajeM.show();
+                }
+                if (evaluacionUsuario(usuarioAsignacion)) {
+                    mensaje.innerHTML = "Debe ingresar nombre de usuario valido";
+                    mensajeM.show();
+                }
+
+                if (evaluacionFecha(fechaAntes, fechaFinal)) {
+                    mensaje.innerHTML = "Debe ingresar una fecha valida";
+                    mensajeM.show();
+                } else if (inicialA.getFullYear()>finalA.getFullYear()) {
+                    mensaje.innerHTML = "La fecha inicial no debe ser mayor a la fecha final";
+                    mensajeM.show();
+                } else if (finalA.getFullYear()>fechaActual.getFullYear()) {
+                    mensaje.innerHTML = "La fecha final no debe ser mayor a la fecha actual";
+                    mensajeM.show();
+                } else if(restaFecha>1){
+                    mensaje.innerHTML="La diferencia entre la fecha inicial y la final no debe ser mayor a un año";
+                    mensajeM.show();
+                }
+
+                if (evaluacionNIT(nit)) {
+                    mensaje.innerHTML = "Debe ingresar número NIT valido";
+                    mensajeM.show();
+                }
+                if (tipoSolicitud === "") {
+                    mensaje.innerHTML = "Debe seleccionar un tipo de solicitud";
+                    mensajeM.show();
+                }
+
+                if (estadoSolicitud === "") {
+                    mensaje.innerHTML = "Debe seleccionar un tipo de estado";
+                    mensajeM.show();
+                }
+
+
             });
-            
-            function inputDisable(){
+
+            function inputDisable() {
                 //const inputAll=document.querySelectorAll('input[type="text"]');
-                document.querySelector('#noexpediente').disabled=true;
-                document.querySelector('#nosoporte').disabled=true;
-                document.querySelector('#usuarioAsignacion').disabled=true;
-                document.querySelector('#fechaAntes').disabled=true;
-                document.querySelector('#fechaFinal').disabled=true;
-                document.querySelector('#nit').disabled=true;
-                const selectAll=document.querySelectorAll('.form-select');
-                
-                for(let i=0;i<selectAll.length;i++){
-                    selectAll[i].disabled=true;
+                document.querySelector('#noexpediente').disabled = true;
+                document.querySelector('#nosoporte').disabled = true;
+                document.querySelector('#usuarioAsignacion').disabled = true;
+                document.querySelector('#fechaAntes').disabled = true;
+                document.querySelector('#fechaFinal').disabled = true;
+                document.querySelector('#nit').disabled = true;
+                const selectAll = document.querySelectorAll('.form-select');
+
+                for (let i = 0; i < selectAll.length; i++) {
+                    selectAll[i].disabled = true;
                 }
             }
-            
-            function evaluacionSoli(solicitud){
-                if(solicitud.length<17 || solicitud===""){
-                    
+
+            function evaluacionSoli(solicitud) {
+                if (solicitud.length < 17 || solicitud === "") {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             }
-            
-            function nitTamano(nit){
-                const div=document.querySelector("#mensaje");
-                if(nit.length<2){
-                    div.innerHTML="el número de nit debe de ser mayor a 2 digitos";
+
+            function evaluacionExp(exp) {
+                if (exp.length < 21 || exp === "") {
                     return true;
-                }else if(nit.length<11){
-                    div.innerHTML="el número de nit debe de tener 11 digitos";
+                } else {
+                    return false;
+                }
+            }
+
+            function evaluacionUsuario(usuario) {
+                if (usuario.length < 8 || usuario.length < 12 || usuario === "") {
                     return true;
+                } else {
+                    return false;
+                }
+            }
+
+            function evaluacionSoporte(sop) {
+                if (sop.length < 3 || sop === "") {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            function evaluacionNIT(nit) {
+                if (nit.length < 2 || nit.length < 11 || nit === "") {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            function evaluacionFecha(Fi, Ff) {
+                if (Fi.length < 10 || Ff.length < 10 || Fi === "" || Ff === "") {
+                    return true;
+                } else {
+                    return false;
                 }
             }
 
