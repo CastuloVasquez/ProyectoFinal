@@ -35,7 +35,7 @@
                                                 <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Mantenimiento</a>
                                                 <ul class="dropdown-menu dropdown-submenu shadow">
                                                     <li><a class="dropdown-item" href="#" onclick='mantenimientoMuestras();' data-toggle="collapse">Mantenimiento de Muestras</a></li>
-                                                    <li><a class="dropdown-item" href="#" onclick='mantenimientoSolicitud();' data-toggle="collapse">Mantenimiento de Solicitudes</a></li>
+                                                    <li><a class="dropdown-item" href="mantenimientoSolicitud.htm" onclick='mantenimientoSolicitud();' data-toggle="collapse">Mantenimiento de Solicitudes</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -62,65 +62,7 @@
                 </div>
             </div>
         </div>
-        <!-- MANTENIMINETO SOLICITUD -->
-        <div id="cardSolicitud" style="display: none">
-            <div class="container-fluid">
-                <div class="pt-4">
-                    <div class="container d-flex align-items-center justify-content-center"> <!-- PARA ALINEAR OBJETOS -->
-                        <div class="col-sm-6">
-                            <div class="card border-light">
-                                <div class="card-body">
-                                    <form id="formSolicitud">
-                                        <h5>Mantenimiento de Solicitud</h5>
-                                        <br>
-                                        <label for="codigoSolicitud">Código de Solicitud</label>
-                                        <input type="text"class="form-control" name="codigoSolicitud" placeholder="AA-00000000-00000" data-mask="aa-00000000-00000" id="codigoSolicitud">
-                                        <br>
-                                        <label for="noexpediente">Número de expediente</label>
-                                        <input type="text" class="form-control" name="noexpediente" id="noexpdiente" placeholder="0000-00-00-00-0000000" data-mask="0000-00-00-00-0000000">
-                                        <br>
-                                        <label for="nosoporte">Número de soporte</label>
-                                        <input type="text" class="form-control" name="nosoporte" id="nosoporte" maxlength="50">
-                                        <br>
-                                        <label for="usuarioAsignacion">Usuario asignación</label>
-                                        <input type="text" class="form-control" name="usuarioAsignacion" id="usuarioAsignacion">
-                                        <br>
-                                        <label>Rango de fechas</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="fecha inicial dd-mm-yyyy" data-mask="dd-mm-yyyy" aria-label="fechaInicial" name="fechaAntes">
-                                            <span class="input-group-text">hasta</span>
-                                            <input type="text" class="form-control" placeholder="fecha final dd-mm-yyyy" data-mask="dd-mm-yyyy" aria-label="fechaFinal" name="fechaFinal">
-                                        </div>
-                                        <br>
-                                        <label for="nit">NIT</label>
-                                        <input type="text" class="form-control" name="nit" id="nit" maxlength="11">
-                                        <br>
-                                        <label >Tipo de solicitud</label>
-                                        <select class="form-select" name="tipoSolicitud">
-                                            <option selected></option>
-                                            <c:forEach var="d" items="${listaSolicitud}">
-                                                <option value="${d.TIPOSOLI_solicitud}">${d.TIPOSOLI_solicitud}</option>
-                                            </c:forEach>
-                                        </select>
-                                        <br>
-                                        <br>
-                                        <label for="estadoSolicitud">Estado de la solicitud</label>
-                                        <select class="form-select" name="estadoSolicitud">
-                                            <option selected></option>
-                                            <c:forEach var="d1" items="${listaEstados}">
-                                                <option value="${d1.VALIESTADO_estado}">${d1.VALIESTADO_estado}</option>
-                                            </c:forEach>
-                                        </select>
-                                        <br>
-                                        <button class="btn btn-primary" id="btnBuscar">Buscar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
 
         <!--Modal-->
         <div class="modal fade" id="mensajeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -142,11 +84,6 @@
         <script type="text/javascript">
             function mantenimientoMuestras() {
                 document.getElementById('cardMuestra').style.display = 'block';
-                document.getElementById('cardSolicitud').style.display = 'none';
-            }
-            function mantenimientoSolicitud() {
-                document.getElementById('cardMuestra').style.display = 'none';
-                document.getElementById('cardSolicitud').style.display = 'block';
             }
         </script>
         <script src="https://jsuites.net/v4/jsuites.js"></script>

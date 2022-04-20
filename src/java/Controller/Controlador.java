@@ -28,11 +28,26 @@ public class Controlador {
     JdbcTemplate jdbc = new JdbcTemplate(con.Conectar());
 
     
+    //////  PRUEBAS ///////////
+    
     @RequestMapping("test.htm")
     public ModelAndView test(){
         mv.setViewName("test");
         return new ModelAndView("test");
     }
+    
+    @RequestMapping(value="test.htm", method=RequestMethod.GET)
+    public ModelAndView testGET(HttpServletRequest request){
+        String sql="select TIPOSOLI_solicitud from tipoSolicitud";
+        String sql2="select VALIESTADO_estado from validacionEstado";
+        List solicitud=this.jdbc.queryForList(sql);
+        List estados=this.jdbc.queryForList(sql2);
+        request.setAttribute("listaEstados", estados);
+        request.setAttribute("listaSolicitud", solicitud);
+        return mv;
+    }
+    
+    ////////////////////////
     
     @RequestMapping("index.htm")
     public ModelAndView index(){
@@ -52,6 +67,11 @@ public class Controlador {
         return new ModelAndView("soporteContacto");
     }
     
+    @RequestMapping("mantenimientoSolicitud.htm")
+    public ModelAndView mantenimientoSolicitud(){
+        mv.setViewName("mantenimientoSolicitud");
+        return mv;
+    }
     
     
     
@@ -75,8 +95,8 @@ public class Controlador {
         return mv;
     }
     
-    @RequestMapping(value="test.htm", method=RequestMethod.GET)
-    public ModelAndView testGET(HttpServletRequest request){
+    @RequestMapping(value="mantenimientoSolicitud.htm", method=RequestMethod.GET)
+    public ModelAndView mantenimientoSolicitudGET(HttpServletRequest request){
         String sql="select TIPOSOLI_solicitud from tipoSolicitud";
         String sql2="select VALIESTADO_estado from validacionEstado";
         List solicitud=this.jdbc.queryForList(sql);
