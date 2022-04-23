@@ -20,7 +20,9 @@
                         <div class="card border-light">
                             <div class="card-body">
                                 <form id="formSolicitud">
-                                    <h5>Mantenimiento de Solicitud</h5>
+                                    <div style="text-align: center">
+                                        <h5>Mantenimiento de Solicitud</h5>
+                                    </div>
                                     <br>
                                     <label for="codigoSolicitud">Código de Solicitud</label>
                                     <input type="text"class="form-control" name="codigoSolicitud" placeholder="AA-00000000-00000" data-mask="aa-00000000-00000" id="codigoSolicitud">
@@ -62,6 +64,8 @@
                                     </select>
                                     <br>
                                     <button class="btn btn-primary" id="btnBuscar">Buscar</button>
+                                    <button class="btn btn-warning" onclick="limpiar()" id="btnLimpiar">Limpiar</button>
+                                    <a href="creacionMuestras.htm" class="btn btn-info">Creacion Solicitud</a>
                                 </form>
                             </div>
                         </div>
@@ -88,9 +92,17 @@
             </div>
         </div>
         <script type="text/javascript">
+            
+            
             const form = document.querySelector("#formSolicitud");
             const btnBuscar = document.querySelector("#btnBuscar");
             const inputSolicitud = document.querySelector('#codigoSolicitud');
+            
+            
+            function limpiar(){
+                form.reset();
+            }
+            
             btnBuscar.addEventListener('click', (e) => {
                 e.preventDefault();
                 const codigoSolicitud = form.codigoSolicitud.value;

@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/castulo/NetBeansProjects/ProyectoFinal/web/WEB-INF/jsp/test.jsp</file>
             <file>file:/home/castulo/NetBeansProjects/ProyectoFinal/web/WEB-INF/jsp/soporteContacto.jsp</file>
+            <file>file:/home/castulo/NetBeansProjects/ProyectoFinal/web/WEB-INF/jsp/creacionMuestras.jsp</file>
             <file>file:/home/castulo/NetBeansProjects/ProyectoFinal/web/script_sql/scriptProyecto.sql</file>
+            <file>file:/home/castulo/NetBeansProjects/ProyectoFinal/web/WEB-INF/jsp/ceroResultado.jsp</file>
             <file>file:/home/castulo/NetBeansProjects/ProyectoFinal/web/WEB-INF/dispatcher-servlet.xml</file>
             <file>file:/home/castulo/NetBeansProjects/ProyectoFinal/src/java/Controller/Controlador.java</file>
             <file>file:/home/castulo/NetBeansProjects/ProyectoFinal/web/WEB-INF/jsp/mantenimientoSolicitud.jsp</file>

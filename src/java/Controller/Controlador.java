@@ -73,7 +73,23 @@ public class Controlador {
         return mv;
     }
     
+    @RequestMapping("ceroResultado.htm")
+    public ModelAndView ceroResultado(){
+        mv.setViewName("ceroResultado");
+        return mv;
+    }
     
+    @RequestMapping("creacionMuestras.htm")
+    public ModelAndView creacionMuestras(){
+        mv.setViewName("creacionMuestras");
+        return mv;
+    }
+    
+    @RequestMapping("resultadoMantSolicitud.htm")
+    public ModelAndView resultadoMantSolicitud(){
+        mv.setViewName("resultadoMantSolicitud");
+        return mv;
+    }
     
 
     @RequestMapping(value="menuSolicitud.htm", method=RequestMethod.GET)

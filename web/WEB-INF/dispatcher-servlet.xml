@@ -21,6 +21,9 @@
                 <prop key="soporteContacto.htm">Controlador</prop>
                 <prop key="test.htm">Controlador</prop>
                 <prop key="mantenimientoSolicitud.htm">Controlador</prop>
+                <prop key="ceroResultado.htm">Controlador</prop>
+                <prop key="creacionMuestras.htm">Controlador</prop>
+                <prop key="resultadoMantSolicitud.htm">Controlador</prop>
             </props>
         </property>
     </bean>
